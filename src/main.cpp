@@ -8,7 +8,11 @@
 
 int main(int argc, char** argv){
 
-  std::cout << "Hola mundo!" << std::endl;
+    Matrix m;
+    PCA pca(1);
+    std::cout << "===== Random: ======" << std::endl;
+    m = Eigen::DiagonalMatrix<double, 3>(3, 8, 6);
+    std::cout << "Resultado:\n " << pca.transform(m) << std::endl;
 
-  return 0;
+    return 0;
 }
