@@ -23,6 +23,12 @@ cd pybind11/ && git checkout v2.2.4 && cd ..
 cd eigen && git checkout 3.3.7 && cd ..
 ```
 
+Si todo eso falla, agregar
+
+```
+git submodule update --init
+```
+
 3. Instalar requerimientos
 
 ```
