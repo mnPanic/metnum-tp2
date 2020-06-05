@@ -1,7 +1,13 @@
 .vscode
 
+# jupyter
+.ipynb_checkpoints
+
 # c++
 *.o
+
+# build
+build/
 
 # cmake
 CMakeFiles
