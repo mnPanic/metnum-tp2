@@ -32,19 +32,19 @@ Vector KNNClassifier::predict(Matrix X) {
 
         // Vemos la distancia a cada una de las imagenes del training set
         for(unsigned i = 0; i < X_train.rows(); ++i) {
-            Vector img_train = X_train.row(k);
+            Vector img_train = X_train.row(i);
 
             // Nos basta con tomar la norma al cuadrado, pues
             // la relacion de orden se mantiene.
             double dist = (img - img_train).transpose() * (img - img_train);
 
             // Insertamos de forma ordenada en k_nearest
-            arr.insert(neighbor{dist, int(y_train(k, 0))});
+            arr.insert(neighbor{dist, int(y_train(i, 0))});
         }
 
         // En arr.k_neighbors tenemos los k vecinos mas cercanos.
         // Buscamos la moda
-        int votes[10];
+        int votes[10] = {0};
         for (neighbor n : arr.k_nearest) {
             // xlas
             assert(0 <= n.digit && n.digit < 10);
