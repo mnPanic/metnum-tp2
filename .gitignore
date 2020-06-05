@@ -1,5 +1,8 @@
 .vscode
 
+# datos
+*.csv
+
 # jupyter
 .ipynb_checkpoints
 
