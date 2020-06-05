@@ -2,3 +2,13 @@
 
 # c++
 *.o
+
+# cmake
+CMakeFiles
+cmake_install.cmake
+CMakeCache.txt
+metnum.cpython*
+
+# targets
+test
+tp2

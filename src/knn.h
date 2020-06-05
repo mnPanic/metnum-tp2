@@ -27,26 +27,23 @@ private:
 struct neighbor {
     double dist;
     int digit;
+
+    bool operator== (const neighbor& other) const {
+        return other.digit == digit && other.dist == dist;
+    }
 };
 
-// para tests
-std::ostream& operator<<(std::ostream& os, const neighbor n) { 
-    os << "[" <<  n.digit << "] " << n.dist;
-    return os;
-}
-
-std::ostream& operator<<(std::ostream& os, const std::vector<neighbor> ns) {
-    for(neighbor n : ns) {
-        os << ns << "; ";
-    }
-
-    return os;
-}
-
 struct OrderedArray {
-    // ordenado en forma ascendente
+    // Ordenado en forma ascendente
     std::vector<neighbor> k_nearest;
     OrderedArray(int k): k_nearest(k, neighbor{INFINITY, 0}) {}
+
+    // swapea en la lista los dos indices indicados
+    void swp(int i, int j) {
+        neighbor tmp = k_nearest[i];
+        k_nearest[i] = k_nearest[j];
+        k_nearest[j] = tmp;
+    }
 
     // Inserta manteniendo el orden, si hace overflow del contenedor
     // descarta el elemento.
@@ -67,7 +64,7 @@ struct OrderedArray {
             i > 0 && k_nearest[i].dist < k_nearest[i - 1].dist;
             i--
         ) {
-            swap(k_nearest[i], k_nearest[i - 1]);
+            swp(i, i - 1);        
         }
     }
 };

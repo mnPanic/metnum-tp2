@@ -5,7 +5,6 @@
 
 using namespace std;
 
-
 KNNClassifier::KNNClassifier(unsigned int n_neighbors): k_neighbors(n_neighbors) {
 }
 
@@ -35,7 +34,7 @@ Vector KNNClassifier::predict(Matrix X) {
             double dist = (img - img_train).transpose() * (img - img_train);
 
             // Insertamos de forma ordenada en k_nearest
-            arr.insert(neighbor{dist, y_train(k, 0)});
+            arr.insert(neighbor{dist, int(y_train(k, 0))});
         }
 
         // En arr.k_neighbors tenemos los k vecinos mas cercanos.
@@ -44,7 +43,7 @@ Vector KNNClassifier::predict(Matrix X) {
         for (neighbor n : arr.k_nearest) {
             // xlas
             assert(0 <= n.digit && n.digit < 10);
-            votes[n.digit]++;
+            votes[int(n.digit)]++;
         }
 
         int max = -1;

@@ -55,6 +55,13 @@ add_executable(tp2
         src/eigen.cpp)
 
 
+# Binario de testing sin main
+add_executable(test
+    src/knn.cpp
+    src/pca.cpp
+    src/eigen.cpp
+    src/UnitTests.cpp)
+
 # si se quiere hacer un ejecutable "tp2" que incluya pybind11, utilizar las
 # siguientes 3 instrucciones de cmake.
 
