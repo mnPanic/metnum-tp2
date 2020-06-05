@@ -29,6 +29,10 @@ Si todo eso falla, agregar
 git submodule update --init
 ```
 
+Y si hay que tirar todo a la basura,
+
+    https://gist.github.com/myusuf3/7f645819ded92bda6677
+
 3. Instalar requerimientos
 
 ```
