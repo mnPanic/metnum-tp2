@@ -12,6 +12,8 @@ public:
 
     Vector predict(Matrix X);
 
+    void set_neighbors(unsigned int k);
+
 private:
 
     // matriz de entrenamiento con imagenes

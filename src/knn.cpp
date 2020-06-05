@@ -5,7 +5,12 @@
 
 using namespace std;
 
-KNNClassifier::KNNClassifier(unsigned int n_neighbors): k_neighbors(n_neighbors) {
+KNNClassifier::KNNClassifier(unsigned int n_neighbors) {
+    set_neighbors(n_neighbors);
+}
+
+void KNNClassifier::set_neighbors(unsigned int k) {
+    k_neighbors = k;
 }
 
 void KNNClassifier::fit(Matrix X, Matrix y) {
