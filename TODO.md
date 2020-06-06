@@ -3,6 +3,7 @@
 - Metodo potencia & Deflacion OK
   - Falta citerio de corte.
 - KNN
+  - weighted vote
 - PCA
 - Cross validation con y analisis de resultados con K-Fold
   - Accuracy
