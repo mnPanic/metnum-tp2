@@ -58,6 +58,21 @@ class TestKNNClassifier(unittest.TestCase):
 
         assertAllClose(self, want, got)
 
+class TestPowerIteration(unittest.TestCase):
+    def test_diagonal(self):
+        X = np.diag([3, -10, 2])
+        V, a = metnum.power_iteration(X)
+
+        want = np.array([0,1,0])
+        assertAllClose(self, want, V)
+        self.assertEqual(10, a)
+
+    def test_single_item(self):
+        X = np.array([20])
+        _, a = metnum.power_iteration(X)
+
+        self.assertEqual(20, a)
+
 def assertAllClose(self, want, got):
     """Se fija que dos vectores esten np.allclose"""
     self.assertTrue(np.allclose(want, got), f"want: {want}, but got: {got}")
