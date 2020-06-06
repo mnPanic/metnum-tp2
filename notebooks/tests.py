@@ -59,19 +59,19 @@ class TestKNNClassifier(unittest.TestCase):
         assertAllClose(self, want, got)
 
 class TestPowerIteration(unittest.TestCase):
+    def assertEigenpair(self, X, a, v):
+        assertAllClose(self, np.abs(X @ v), np.abs(a * v))
+
     def test_diagonal(self):
         X = np.diag([3, -10, 2])
-        V, a = metnum.power_iteration(X)
-
-        want = np.array([0,1,0])
-        assertAllClose(self, want, V)
-        self.assertEqual(10, a)
+        a, v = metnum.power_iteration(X)
+        v = v.reshape(3, 1)
+        self.assertEigenpair(X, a, v)
 
     def test_single_item(self):
         X = np.array([20])
-        _, a = metnum.power_iteration(X)
-
-        self.assertEqual(20, a)
+        a, v = metnum.power_iteration(X)
+        self.assertEigenpair(X, a, v)
 
 def assertAllClose(self, want, got):
     """Se fija que dos vectores esten np.allclose"""
