@@ -94,6 +94,20 @@ class TestGetFirstEigenValues(unittest.TestCase):
 
         assertAllClose(self, v, w)
 
+class TestGetFirstPCA(unittest.TestCase):
+    def test_square(self):
+        pca = metnum.PCA(2)
+        X = np.diag([3, 6, 9])
+
+        got = pca.transform(X)
+        self.assertEqual(got.shape, (3,2))
+
+    def test_big(self):
+        pca = metnum.PCA(12)
+        X = np.random.rand(200, 28)
+        got = pca.transform(X)
+        self.assertEqual(got.shape, (200,12))
+
 def assertAllClose(self, want, got):
     """Se fija que dos vectores esten np.allclose"""
     self.assertTrue(np.allclose(want, got), f"want: {want}, but got: {got}")
