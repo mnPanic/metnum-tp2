@@ -10,7 +10,10 @@ public:
 
     void fit(Matrix X, Matrix y);
 
-    Vector predict(Matrix X);
+    // clasifica las imagenes de la matriz X. Los votos de los vecinos mas
+    // cercanos son uniformes por defecto, pero pueden ser basados en su
+    // distancia tambien especificando "distance"
+    Vector predict(Matrix X, std::string weights = "uniform");
 
     void set_neighbors(unsigned int k);
 

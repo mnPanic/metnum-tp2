@@ -58,6 +58,40 @@ class TestKNNClassifier(unittest.TestCase):
 
         assertAllClose(self, want, got)
 
+
+    def test_weights(self):
+        """Testea los weights"""
+
+        # Primero, caso en el que considere todos los vecinos, y en caso
+        # de empate deberia dar el primero.
+        classifier = metnum.KNNClassifier(12)
+
+        X_train = np.array([
+            [20, 20], [21, 20], [20, 22], [22, 20],
+            [0, 0],   [1, 0],   [0, 1],   [1, 1],
+            [5, 5],   [6, 5],   [5, 6],   [6, 6],
+        ])
+
+        y_train = np.array([
+            [9], [9], [9], [9],
+            [0], [0], [0], [0],
+            [5], [5], [5], [5],
+        ])
+
+        classifier.fit(X_train, y_train)
+
+        X = np.array([
+            [15, 15], # deberia dar 9
+        ])
+
+        got = classifier.predict(X)
+        assertAllClose(self, np.array([0.0]), got)
+
+        # prediciendo tomando como weights la distancia,
+        # deberia dar el valor correcto
+        got = classifier.predict(X, weights="distance")
+        assertAllClose(self, np.array([9.0]), got)
+
 class TestPowerIteration(unittest.TestCase):
     def assertEigenpair(self, X, a, v):
         assertAllClose(self, np.abs(X @ v), np.abs(a * v))

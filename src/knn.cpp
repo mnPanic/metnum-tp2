@@ -18,7 +18,12 @@ void KNNClassifier::fit(Matrix X, Matrix y) {
     y_train = y;
 }
 
-Vector KNNClassifier::predict(Matrix X) {
+const std::string WEIGHTS_UNIFORM = "uniform";
+const std::string WEIGHTS_DISTANCE = "distance";
+
+Vector KNNClassifier::predict(Matrix X, std::string weights) {
+    assert(weights == WEIGHTS_UNIFORM || weights == WEIGHTS_DISTANCE);
+
     // Creamos vector columna a devolver
     auto classifications = Vector(X.rows());
 
@@ -42,16 +47,23 @@ Vector KNNClassifier::predict(Matrix X) {
             arr.insert(neighbor{dist, int(y_train(i, 0))});
         }
 
-        // En arr.k_neighbors tenemos los k vecinos mas cercanos.
         // Buscamos la moda
-        int votes[10] = {0};
+        double votes[10] = {0};
         for (neighbor n : arr.k_nearest) {
-            // xlas
+            // Por si acaso vemos que el digito sea valido
             assert(0 <= n.digit && n.digit < 10);
-            votes[int(n.digit)]++;
+
+            // Para distancia, queremos que a menor distancia mas weight.
+            // Una forma de hacer esto es que el weight sea 1/dist, ya que
+            // no es necesario que el mismo esté normalizado.
+            double weight = 0;
+            if(weights == WEIGHTS_UNIFORM) weight = 1;
+            if(weights == WEIGHTS_DISTANCE) weight = 1/n.dist;
+
+            votes[int(n.digit)] += 1 * weight;
         }
 
-        int max = -1;
+        double max = -1;
         int classification = -1;
         for(int i = 0; i < 10; i++) {
             if (votes[i] > max) { 
