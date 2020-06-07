@@ -73,6 +73,27 @@ class TestPowerIteration(unittest.TestCase):
         a, v = metnum.power_iteration(X)
         self.assertEigenpair(X, a, v)
 
+class TestGetFirstEigenValues(unittest.TestCase):
+    def test_diagonal_first(self):
+        X = np.diag([2,1,-3])
+        eigenValues, eigenVectors = metnum.get_first_eigenvalues(X, 2)
+        got = X @ eigenVectors
+
+        self.assertEqual(eigenVectors.shape, (3, 2))
+        self.assertEqual(got.shape, (3,2))
+        assertAllClose(self, eigenVectors @ np.abs(np.diag(eigenValues)), np.abs(got))
+    
+    def test_symmetric(self):
+        x = np.random.rand(28,30)
+        m = x.T @ x
+
+        self.assertEqual(m.shape, (30,30))
+        v, _ = metnum.get_first_eigenvalues(m, 30)
+        w, _ = np.linalg.eig(m)
+        self.assertEqual(v.shape, w.shape)
+
+        assertAllClose(self, v, w)
+
 def assertAllClose(self, want, got):
     """Se fija que dos vectores esten np.allclose"""
     self.assertTrue(np.allclose(want, got), f"want: {want}, but got: {got}")
