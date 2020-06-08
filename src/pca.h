@@ -8,7 +8,7 @@ public:
 
     void fit(Matrix X);
 
-    Eigen::MatrixXd transform(Matrix X, unsigned int, double);
+    Eigen::MatrixXd transform(Matrix X, unsigned int n_iter=5000, double eps=1e-5);
 private:
     unsigned int alpha;
     Matrix data;
