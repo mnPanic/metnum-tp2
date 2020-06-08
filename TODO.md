@@ -12,3 +12,5 @@
 
 - Buscar parametros optimos k y $\alpha$ (hill climber / simulated annealing)
 - (opcional pero no tanto) Participar en Diggit Recognizer de kaggle
+
+- Recall para ciertos digitos / ver para qué digitos esta metrica es baja (3, 8)
