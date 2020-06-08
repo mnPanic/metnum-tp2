@@ -12,7 +12,7 @@ void PCA::fit(Matrix X) {
 }
 
 
-MatrixXd PCA::transform(Matrix X) {
+MatrixXd PCA::transform(Matrix X, unsigned int num_iter, double epsilon) {
 
     /// Vector de promedio de las filas de X. mu \in R^{1 x m}///
     Vector mu = (Vector::Constant(X.rows(), 1).transpose() * X)/ X.rows();
@@ -22,7 +22,7 @@ MatrixXd PCA::transform(Matrix X) {
     Matrix M = ((X - mu_broadcast_rows).transpose() * (X - mu_broadcast_rows)) / (X.rows() - 1);
 
     /// Obtenemos los primeros \alpha autovectores para aplicar la transformación característica.
-    std::pair<Vector, Matrix> eigenpair = get_first_eigenvalues(M, this->alpha);
+    std::pair<Vector, Matrix> eigenpair = get_first_eigenvalues(M, this->alpha, num_iter, epsilon);
 
     return (eigenpair.second.transpose() * X.transpose()).transpose();
 }
