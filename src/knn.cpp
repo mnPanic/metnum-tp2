@@ -1,6 +1,7 @@
 #include <algorithm>
 //#include <chrono>
 #include <iostream>
+#include <math.h>
 #include "knn.h"
 
 using namespace std;
@@ -20,10 +21,9 @@ void KNNClassifier::fit(Matrix X, Matrix y) {
 
 const std::string WEIGHTS_UNIFORM = "uniform";
 const std::string WEIGHTS_DISTANCE = "distance";
+const std::string WEIGHTS_DISTANCE_POW = "distance_pow";
 
 Vector KNNClassifier::predict(Matrix X, std::string weights) {
-    assert(weights == WEIGHTS_UNIFORM || weights == WEIGHTS_DISTANCE);
-
     // Creamos vector columna a devolver
     auto classifications = Vector(X.rows());
 
@@ -57,8 +57,9 @@ Vector KNNClassifier::predict(Matrix X, std::string weights) {
             // Una forma de hacer esto es que el weight sea 1/dist, ya que
             // no es necesario que el mismo esté normalizado.
             double weight = 0;
-            if(weights == WEIGHTS_UNIFORM) weight = 1;
-            if(weights == WEIGHTS_DISTANCE) weight = 1/n.dist;
+            if(weights == WEIGHTS_UNIFORM)      weight = 1;
+            if(weights == WEIGHTS_DISTANCE)     weight = 1/n.dist;
+            if(weights == WEIGHTS_DISTANCE_POW) weight = 1/pow(n.dist, 3);
 
             votes[int(n.digit)] += 1 * weight;
         }
