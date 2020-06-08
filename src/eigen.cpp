@@ -8,15 +8,22 @@ using namespace std;
 
 pair<double, Vector> power_iteration(const Matrix& X, unsigned num_iter, double eps)
 {
+	srand(42);
 	Vector b = Vector::Random(X.cols());
+	Vector last_b;
 	//Calculate iteratively b_k+1 = X*b_k / ||X*b_k||
-	while (num_iter-- > 0) {
+	do {
+		last_b = b;
+
 		Eigen::VectorXd b_k = X * b;
 
 		double b_k_norm = b_k.norm();
 
 		b = b_k / b_k_norm;
-	}
+
+	}while (--num_iter > 0 && 
+		   //(last_b-b).norm() > eps);
+		   (1-(last_b*b)/(a.norm()*b.norm()))) > eps);
 
 	//eigenvalue associated to this eigenvector = (vt A v) / vt v
 	double eigval = b.transpose() * X * b;
