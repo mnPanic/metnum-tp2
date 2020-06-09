@@ -65,7 +65,7 @@ def cross_validate_fns(
     # Para guardar los scores de cada funcion provista
     scorings = {key:[] for key in scoring_fns.keys()}
     
-    set_size = int( (1.0/K) * X.shape[0])
+    set_size = int(X.shape[0]/K)
     
     for i in range(K):
         # Particion

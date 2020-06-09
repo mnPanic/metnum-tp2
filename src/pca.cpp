@@ -17,7 +17,7 @@ void PCA::fit(Matrix X, unsigned int n_iter, double eps) {
     Matrix M = ((X - mu_broadcast_rows).transpose() * (X - mu_broadcast_rows)) / (X.rows() - 1);
 
     /// Obtenemos los primeros \alpha autovectores para aplicar la transformación característica.
-    std::pair<Vector, Matrix> eigenpair = get_first_eigenvalues(M, this->alpha, num_iter, epsilon);
+    std::pair<Vector, Matrix> eigenpair = get_first_eigenvalues(M, this->alpha, n_iter, eps);
 
     this->tc = eigenpair.second.transpose();
 }
