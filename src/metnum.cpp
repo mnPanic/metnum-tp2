@@ -23,7 +23,7 @@ PYBIND11_MODULE(metnum, m) {
             "fit", &PCA::fit,
             py::arg("X"),
             py::arg("n_iter")=5000,
-            py::arg("eps")=1e-2)
+            py::arg("eps")=1e-6)
         .def("transform", &PCA::transform)
         .def("set_tc", &PCA::set_tc)
         .def("get_tc", &PCA::get_tc);
