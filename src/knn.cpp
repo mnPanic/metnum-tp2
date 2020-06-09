@@ -58,9 +58,9 @@ Vector KNNClassifier::predict(Matrix X) {
             // Una forma de hacer esto es que el weight sea 1/dist, ya que
             // no es necesario que el mismo esté normalizado.
             double weight = 0;
-            if(weights == WEIGHTS_UNIFORM)      weight = 1;
-            if(weights == WEIGHTS_DISTANCE)     weight = 1/n.dist;
-            if(weights == WEIGHTS_DISTANCE_POW) weight = 1/pow(n.dist, 3);
+            if(this->weights == WEIGHTS_UNIFORM)      weight = 1;
+            if(this->weights == WEIGHTS_DISTANCE)     weight = 1/n.dist;
+            if(this->weights == WEIGHTS_DISTANCE_POW) weight = 1/pow(n.dist, 3);
 
             votes[int(n.digit)] += 1 * weight;
         }
