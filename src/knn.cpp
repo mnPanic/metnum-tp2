@@ -6,8 +6,9 @@
 
 using namespace std;
 
-KNNClassifier::KNNClassifier(unsigned int n_neighbors) {
+KNNClassifier::KNNClassifier(unsigned int n_neighbors, std::string weights) {
     set_neighbors(n_neighbors);
+    this->weights = weights;
 }
 
 void KNNClassifier::set_neighbors(unsigned int k) {
@@ -23,7 +24,7 @@ const std::string WEIGHTS_UNIFORM = "uniform";
 const std::string WEIGHTS_DISTANCE = "distance";
 const std::string WEIGHTS_DISTANCE_POW = "distance_pow";
 
-Vector KNNClassifier::predict(Matrix X, std::string weights) {
+Vector KNNClassifier::predict(Matrix X) {
     // Creamos vector columna a devolver
     auto classifications = Vector(X.rows());
 

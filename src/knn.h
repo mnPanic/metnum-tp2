@@ -6,14 +6,14 @@
 
 class KNNClassifier {
 public:
-    KNNClassifier(unsigned int n_neighbors);
+    KNNClassifier(unsigned int n_neighbors, std::string weight_type = "uniform");
 
     void fit(Matrix X, Matrix y);
 
     // clasifica las imagenes de la matriz X. Los votos de los vecinos mas
     // cercanos son uniformes por defecto, pero pueden ser basados en su
-    // distancia tambien especificando "distance"
-    Vector predict(Matrix X, std::string weights = "uniform");
+    // distancia tambien especificando "distance" o "distance_pow" al crear
+    Vector predict(Matrix X);
 
     void set_neighbors(unsigned int k);
 
@@ -27,6 +27,9 @@ private:
 
     // Cantidad de vecinos a considerar
     int k_neighbors;
+
+    // Tipo de weight, puede ser "distance", "distance_pow" o "uniform"
+    std::string weights;
 };
 
 struct neighbor {
