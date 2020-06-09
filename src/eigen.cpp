@@ -12,6 +12,8 @@ pair<double, Vector> power_iteration(const Matrix& X, unsigned num_iter, double 
 	Vector b = Vector::Random(X.cols());
 	Vector last_b;
 	//Calculate iteratively b_k+1 = X*b_k / ||X*b_k||
+    float cos_iter = 0;
+
 	do {
 		last_b = b;
 
@@ -21,9 +23,10 @@ pair<double, Vector> power_iteration(const Matrix& X, unsigned num_iter, double 
 
 		b = b_k / b_k_norm;
 
-	}while (--num_iter > 0 && 
-		   //(last_b-b).norm() > eps);
-		   (1-(last_b*b)/(a.norm()*b.norm()))) > eps);
+        float int_prod = last_b.transpose() * b;
+        cos_iter = int_prod/(last_b.norm()*last_b.norm() * b.norm()*b.norm());
+	}while (--num_iter > 0 && (1-cos_iter >= eps));
+		   //(last_b-b).norm() > eps);;
 
 	//eigenvalue associated to this eigenvector = (vt A v) / vt v
 	double eigval = b.transpose() * X * b;

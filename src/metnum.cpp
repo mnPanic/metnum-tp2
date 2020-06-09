@@ -25,8 +25,8 @@ PYBIND11_MODULE(metnum, m) {
             py::arg("X"),
             py::arg("n_iter")=5000,
             py::arg("eps")=1e-2)
-        .def("transform", &PCA::transform),
-        .def("set_tc", &PCA::set_tc),
+        .def("transform", &PCA::transform)
+        .def("set_tc", &PCA::set_tc)
         .def("get_tc", &PCA::get_tc);
     m.def(
         "power_iteration", &power_iteration,
