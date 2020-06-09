@@ -3,7 +3,8 @@
 __pycache__
 
 # datos
-*.csv
+test.csv
+train.csv
 
 # jupyter
 .ipynb_checkpoints
