@@ -179,3 +179,43 @@ def fold(
     scores["fit_time"].append(fit_time_elapsed)
     if debug: print(f"finished {i}")
 
+
+def cross_validate_pca(
+        clf, 
+        X, y, 
+        scoring: ScoringFunc, 
+        K: int,
+        debug=False, 
+        **kwargs
+    ) -> float:
+    """"
+    Hace K fold del classifier `clf`, llamando a la funcion de scoring
+    para calcular los scores de cada fold.
+    """
+
+    scores = []
+    
+    set_size = int(X.shape[0]/K)
+    
+    for i in range(K):
+        # Particionar
+        l_bound = set_size * i
+        r_bound = set_size * (i+1)
+        
+        X_train = np.block([[X[:l_bound]],[X[r_bound:]]])
+        y_train = np.block([[y[:l_bound]],[y[r_bound:]]])
+        X_val = X[l_bound:r_bound]
+        y_val = y[l_bound:r_bound]
+
+        # Entrenar
+        clf.fit(X_train, y_train.ravel(),i)
+          
+        # Clasificar
+        y_pred = clf.predict(X_val, **kwargs)
+
+        # Scoring
+        scores.append(scoring(y_val, y_pred))
+    
+    if debug: print("scores:", scores)
+
+    return statistics.mean(scores)
