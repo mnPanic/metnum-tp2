@@ -20,7 +20,11 @@ PYBIND11_MODULE(metnum, m) {
 
     py::class_<PCA>(m, "PCA")
         .def(py::init<unsigned int>())
-        .def("fit", &PCA::fit)
+        .def(
+            "fit", &PCA::fit,
+            py::arg("X"),
+            py::arg("n_iter")=5000,
+            py::arg("eps")=1e-2)
         .def("transform", &PCA::transform);
     m.def(
         "power_iteration", &power_iteration,

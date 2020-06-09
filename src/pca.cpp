@@ -7,12 +7,7 @@ using namespace std;
 
 PCA::PCA(unsigned int n_components) : alpha(n_components) {};
 
-void PCA::fit(Matrix X) {
-    this->data = X;
-}
-
-
-MatrixXd PCA::transform(Matrix X, unsigned int num_iter, double epsilon) {
+void PCA::fit(Matrix X, unsigned int n_iter, double eps) {
 
     /// Vector de promedio de las filas de X. mu \in R^{1 x m}///
     Vector mu = (Vector::Constant(X.rows(), 1).transpose() * X)/ X.rows();
@@ -24,5 +19,10 @@ MatrixXd PCA::transform(Matrix X, unsigned int num_iter, double epsilon) {
     /// Obtenemos los primeros \alpha autovectores para aplicar la transformación característica.
     std::pair<Vector, Matrix> eigenpair = get_first_eigenvalues(M, this->alpha, num_iter, epsilon);
 
-    return (eigenpair.second.transpose() * X.transpose()).transpose();
+    this->tc = eigenpair.second.transpose();
+}
+
+
+MatrixXd PCA::transform(Matrix X) {
+    return (this->tc * X.transpose()).transpose();
 }
