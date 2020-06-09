@@ -20,9 +20,14 @@ void PCA::fit(Matrix X, unsigned int n_iter, double eps) {
     std::pair<Vector, Matrix> eigenpair = get_first_eigenvalues(M, this->alpha, n_iter, eps);
 
     this->tc = eigenpair.second.transpose();
-}
+};
+
+void PCA::set_tc(Matrix X) {this->tc = X; };
+
+Matrix PCA::get_tc() { return this->tc; };
+
 
 
 MatrixXd PCA::transform(Matrix X) {
     return (this->tc * X.transpose()).transpose();
-}
+};
