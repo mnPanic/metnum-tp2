@@ -44,8 +44,10 @@ Todos con K-Fold con K = ? (4)
   Con params fijos (k, alpha)
   
   2.4. Entrenando con tamaños variados de imagenes para entrenamiento
-      (5000, 10000, 25000, max).
+      1000 5000 10000 25000 42000
+
   2.5. Probar con diferentes Ks y ver como varia las metricas
+      2, 4, 6, 8, 10
 
 3. Accuracy y F1 para ambos de kNN k opt. y kNN + PCA con (k, alpha)
 4. Kappa de Cohen
