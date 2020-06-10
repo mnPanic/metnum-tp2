@@ -19,6 +19,8 @@ def annealing(
     Devuelve dict con los states y scores.
     """
 
+    if debug: print("starting simulated annealing")
+
     best_state = random_start()
     best_score = score_function(best_state)
     state = best_state
