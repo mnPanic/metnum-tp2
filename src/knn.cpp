@@ -23,6 +23,8 @@ void KNNClassifier::fit(Matrix X, Matrix y) {
 const std::string WEIGHTS_UNIFORM = "uniform";
 const std::string WEIGHTS_DISTANCE = "distance";
 const std::string WEIGHTS_DISTANCE_POW = "distance_pow";
+const std::string WEIGHTS_DIST_POW_5 = "distance_pow_5";
+const std::string WEIGHTS_DIST_POW_10 = "distance_pow_10";
 
 Vector KNNClassifier::predict(Matrix X) {
     // Creamos vector columna a devolver
@@ -61,6 +63,8 @@ Vector KNNClassifier::predict(Matrix X) {
             if(this->weights == WEIGHTS_UNIFORM)      weight = 1;
             if(this->weights == WEIGHTS_DISTANCE)     weight = 1/n.dist;
             if(this->weights == WEIGHTS_DISTANCE_POW) weight = 1/pow(n.dist, 3);
+            if(this->weights == WEIGHTS_DIST_POW_5)   weight = 1/pow(n.dist, 5);
+            if(this->weights == WEIGHTS_DIST_POW_10)  weight = 1/pow(n.dist, 10);
 
             votes[int(n.digit)] += 1 * weight;
         }
