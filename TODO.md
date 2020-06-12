@@ -52,3 +52,15 @@ Todos con K-Fold con K = ? (4)
 3. Accuracy y F1 para ambos de kNN k opt. y kNN + PCA con (k, alpha)
 4. Kappa de Cohen
 5. Concluir cual es mejor
+
+## Entrega
+
+- Tal vez tiempo de ejecucion
+  
+  Correr n veces knn + pca, y knn solo, y hacer un bargraph de sns.
+
+- Releer todo
+- Conclusion
+- Abstract
+- Terminar exp
+  - Cohen
