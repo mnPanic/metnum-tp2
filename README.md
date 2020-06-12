@@ -28,6 +28,10 @@ Los experimentos están dentro de [`notebooks`](notebooks). Para cada uno hay un
 notebook separado. Y sus datos se encuentran en
 [`notebooks/data`](notebooks/data), tambien uno por experimento.
 
+## Informe
+
+El informe se encuentra en [informe](informe/metnum_tp2.pdf)
+
 ## Kaggle
 
 Los datos para entrenar y testear están en [`data`](data), y dentro están las
