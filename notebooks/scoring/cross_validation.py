@@ -2,11 +2,54 @@ import time
 import numpy as np
 import statistics
 import threading
+import sklearn.metrics as metrics
 
 from typing import Dict
 from typing import Callable
 
 ScoringFunc = Callable[[np.ndarray, np.ndarray], float]
+
+def cross_validate_recall(
+        clf, 
+        X, y, 
+        K: int,
+    ) -> Dict[int, float]:
+    """"
+    Hace K fold del classifier `clf`, llamando a la funcion de scoring
+    para calcular los scores de cada fold.
+    """
+    
+    set_size = int(X.shape[0]/K)
+    
+    digits = range(0, 10)
+    recall_by_digit = {i: [] for i in digits}
+
+    for i in range(K):
+        # Particionar
+        l_bound = set_size * i
+        r_bound = set_size * (i+1)
+        
+        X_train = np.block([[X[:l_bound]],[X[r_bound:]]])
+        y_train = np.block([[y[:l_bound]],[y[r_bound:]]])
+        X_val = X[l_bound:r_bound]
+        y_val = y[l_bound:r_bound]
+
+        # Entrenar
+        clf.fit(X_train, y_train.ravel())
+          
+        # Clasificar
+        y_pred = clf.predict(X_val)
+
+        # Scoring
+        recall_scores = metrics.recall_score(y_val, y_pred, labels=digits, average=None)
+        assert(len(recall_scores) == len(recall_by_digit))
+        
+        for j in digits:
+            recall_by_digit[j].append(recall_scores[j])
+        
+    avg_recall_by_digit = {i : statistics.mean(dr) for i, dr in recall_by_digit.items()}
+    return avg_recall_by_digit
+
 
 def cross_validate(
         clf, 

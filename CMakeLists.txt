@@ -47,12 +47,12 @@ message(CMAKE_INSTALL_PREFIX = "${CMAKE_INSTALL_PREFIX}")
 
 install(TARGETS metnum DESTINATION ${CMAKE_INSTALL_PREFIX}/notebooks)
 
-# # Crear un binario para testing manteniendo las dependencias de python por separado
-# add_executable(tp2
-#         src/main.cpp
-#         src/knn.cpp
-#         src/pca.cpp
-#         src/eigen.cpp)
+# Crear un binario para testing manteniendo las dependencias de python por separado
+add_executable(tp2
+        src/main.cpp
+        src/knn.cpp
+        src/pca.cpp
+        src/eigen.cpp)
 
 # Binario de testing sin main
 add_executable(test
