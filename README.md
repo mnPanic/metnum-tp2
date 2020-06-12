@@ -14,7 +14,12 @@ En [notebooks/tests.py](notebooks/tests.py) se encuentran los tests hechos con
 con hacer
 
 ```bash
-python3 tests.py
+$ python3 tests.py
+.....
+----------------------------------------------------------------------
+Ran 5 tests in 0.003s
+
+OK
 ```
 
 ## Experimentos

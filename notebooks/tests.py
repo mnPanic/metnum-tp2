@@ -89,7 +89,7 @@ class TestKNNClassifier(unittest.TestCase):
 
         # prediciendo tomando como weights la distancia,
         # deberia dar el valor correcto
-        classifier = metnum.KNNClassifier(12, "uniform")
+        classifier = metnum.KNNClassifier(12, "distance")
         classifier.fit(X_train, y_train)
 
         got = classifier.predict(X)
@@ -109,27 +109,6 @@ class TestPowerIteration(unittest.TestCase):
         X = np.array([20])
         a, v = metnum.power_iteration(X)
         self.assertEigenpair(X, a, v)
-
-class TestGetFirstEigenValues(unittest.TestCase):
-    def test_diagonal_first(self):
-        X = np.diag([2,1,-3])
-        eigenValues, eigenVectors = metnum.get_first_eigenvalues(X, 2)
-        got = X @ eigenVectors
-
-        self.assertEqual(eigenVectors.shape, (3, 2))
-        self.assertEqual(got.shape, (3,2))
-        assertAllClose(self, eigenVectors @ np.abs(np.diag(eigenValues)), np.abs(got))
-    
-    def test_symmetric(self):
-        x = np.random.rand(28,30)
-        m = x.T @ x
-
-        self.assertEqual(m.shape, (30,30))
-        v, _ = metnum.get_first_eigenvalues(m, 30)
-        w, _ = np.linalg.eig(m)
-        self.assertEqual(v.shape, w.shape)
-
-        assertAllClose(self, v, w)
 
 def assertAllClose(self, want, got):
     """Se fija que dos vectores esten np.allclose"""
