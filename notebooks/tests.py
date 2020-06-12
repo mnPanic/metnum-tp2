@@ -9,7 +9,7 @@ import scipy
 class TestKNNClassifier(unittest.TestCase):
     def test_same(self):
         """Testea que predecir la matriz de entrenamiento de el mismo res"""
-        classifier = metnum.KNNClassifier(1)
+        classifier = metnum.KNNClassifier(1, "uniform")
 
         X_train = np.array([
             [1, 2, 3],
@@ -31,7 +31,7 @@ class TestKNNClassifier(unittest.TestCase):
     
     def test_little(self):
         """Testea un caso en R2"""
-        classifier = metnum.KNNClassifier(3)
+        classifier = metnum.KNNClassifier(3, "uniform")
 
         X_train = np.array([
             [0, 0],   [1, 0],   [0, 1],   [1, 1],
@@ -64,7 +64,7 @@ class TestKNNClassifier(unittest.TestCase):
 
         # Primero, caso en el que considere todos los vecinos, y en caso
         # de empate deberia dar el primero.
-        classifier = metnum.KNNClassifier(12)
+        classifier = metnum.KNNClassifier(12, "uniform")
 
         X_train = np.array([
             [20, 20], [21, 20], [20, 22], [22, 20],
@@ -89,7 +89,10 @@ class TestKNNClassifier(unittest.TestCase):
 
         # prediciendo tomando como weights la distancia,
         # deberia dar el valor correcto
-        got = classifier.predict(X, weights="distance")
+        classifier = metnum.KNNClassifier(12, "uniform")
+        classifier.fit(X_train, y_train)
+
+        got = classifier.predict(X)
         assertAllClose(self, np.array([9.0]), got)
 
 class TestPowerIteration(unittest.TestCase):
@@ -127,22 +130,6 @@ class TestGetFirstEigenValues(unittest.TestCase):
         self.assertEqual(v.shape, w.shape)
 
         assertAllClose(self, v, w)
-
-# class TestGetFirstPCA(unittest.TestCase):
-#     def test_square(self):
-#         pca = metnum.PCA(2)
-#         X = np.diag([3, 6, 9])
-#         pca.fit(X)
-
-#         got = pca.transform(X)
-#         self.assertEqual(got.shape, (3,2))
-
-#     def test_big(self):
-#         pca = metnum.PCA(12)
-#         X = np.random.rand(200, 28)
-#         pca.fit(X[])
-#         got = pca.transform(X)
-#         self.assertEqual(got.shape, (200,12))
 
 def assertAllClose(self, want, got):
     """Se fija que dos vectores esten np.allclose"""
